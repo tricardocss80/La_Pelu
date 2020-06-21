@@ -6,6 +6,7 @@ from pagesales import Pagesales
 from pageproduct import Pageproduct
 from pageclient import Pageclient
 from pageemployees import Pageemployees
+from pagesalesforms import Pagesalesforms
 
 
 class VentaCases(unittest.TestCase):
@@ -18,6 +19,7 @@ class VentaCases(unittest.TestCase):
         self.ProductPage = Pageproduct(self.driver)
         self.Clientpage = Pageclient(self.driver)
         self.EmployeesPage = Pageemployees(self.driver)
+        self.FormsSalesPage = Pagesalesforms(self.driver)
         self.driver.implicitly_wait(15)
         data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'velezcapo'}
         self.IndexPage.Enterokay()
@@ -70,14 +72,13 @@ class VentaCases(unittest.TestCase):
         client = 'sil'
         product = {
             'product': 'sha',
-            'quantity': '5',
-            'price': '250'
+            'quantity': '1'
         }
         self.SalesPage.venta_menu()
-        self.SalesPage.click_new_sale()
-        self.SalesPage.form_new_sales(client)
-        self.SalesPage.sub_form_product(product)
-
+        self.SalesPage.click_button_new_sale()
+        self.FormsSalesPage.form_new_sales(client)
+        self.FormsSalesPage.sub_form_product(product)
+        self.SalesPage.click_button_save_new_sale()
 
         #quantity_sales = self.SalesPage.quantity_venta()
         #self.assertEqual(quantity_sales, 1)
