@@ -7,7 +7,7 @@ import time
 class Pagesalesforms:
     def __init__(self, driver):
         self.intput_client_locator = (By.XPATH, '//input[contains(@autocomplete,"off")]')
-        self.intput_client_list = (By.XPATH, '//input[contains(@aria-autocomplete,"list")]')
+        self.intput_client_list = (By.XPATH, '//div[@id="react-select-4-option-0" and contains(@class, "css-dpec0i-option")]/span[contains(@class, "select-option-label")]')
         self.button_plus_product = (By.XPATH, '//button[contains(text(),"+ Producto")]')
         self.intput_item_employees = (By.XPATH, '//div[contains(@class,"EmployeesListComponent")]')
         self.intput_item_employees_list = (By.XPATH, '//div[contains(@class,"css-b8bncs-singleValue")]')
@@ -23,8 +23,8 @@ class Pagesalesforms:
     def form_new_sales(self, client):
         self.driver.find_element(*self.intput_client_locator).send_keys(client)
         self.driver.find_element(*self.intput_client_list).click()
-        button_plus_product = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.button_plus_product))
+        time.sleep(10)
+        button_plus_product = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.button_plus_product))
         button_plus_product.click()
 
     def sub_form_product(self, product):
