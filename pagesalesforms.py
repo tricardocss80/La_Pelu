@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
 
 class Pagesalesforms:
@@ -20,20 +19,18 @@ class Pagesalesforms:
         self.button_item_products_save = (By.XPATH, '//button[contains(.,"Agregar")]')
         self.driver = driver
 
-    def form_new_sales(self, client):
-        self.driver.find_element(*self.intput_client_locator).send_keys(client)
+    def form_new_sales(self, data_sale):
+        self.driver.find_element(*self.intput_client_locator).send_keys(data_sale['client'])
         self.driver.find_element(*self.intput_client_list).click()
-        time.sleep(10)
         button_plus_product = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.button_plus_product))
         button_plus_product.click()
 
-    def sub_form_product(self, product):
+    def sub_form_product(self, data_sale):
         self.driver.find_element(*self.intput_item_employees).click()
         self.driver.find_element(*self.intput_item_employees_list).click()
-        self.driver.find_element(*self.intput_item_products_locator).send_keys(product['product'])
+        self.driver.find_element(*self.intput_item_products_locator).send_keys(data_sale['product'])
         self.driver.find_element(*self.intput_item_products_list).click()
         self.driver.find_element(*self.intput_item_products_quantity).clear()
-        self.driver.find_element(*self.intput_item_products_quantity).send_keys(product['quantity'])
+        self.driver.find_element(*self.intput_item_products_quantity).send_keys(data_sale['quantity'])
         button_save = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.button_item_products_save))
         button_save.click()
-        time.sleep(3)

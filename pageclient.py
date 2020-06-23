@@ -20,8 +20,8 @@ class Pageclient:
         self.driver = driver
 
     def menu_click_client(self):
-        menu_clientes = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.clientes_menu))
-        WebDriverWait(self.driver, 10).until(EC.invisibility_of_element(self.loading))
+        menu_clientes = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located(self.clientes_menu))
+        WebDriverWait(self.driver, 20).until(EC.invisibility_of_element(self.loading))
         menu_clientes.click()
 
     def new_client(self):
@@ -35,7 +35,7 @@ class Pageclient:
         self.driver.find_element(*self.intput_email).send_keys(data_client['email'])
         self.driver.find_element(*self.intput_phone).send_keys(data_client['phone'])
         self.driver.find_element(*self.intput_direction).send_keys(data_client['direction'])
-        button_guardar = WebDriverWait(self.driver, 4).until(EC.element_to_be_clickable(self.button_guardar))
+        button_guardar = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.button_guardar))
         button_guardar.click()
 
     def quantity_client(self):
