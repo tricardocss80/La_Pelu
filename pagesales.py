@@ -15,26 +15,26 @@ class Pagesales:
         self.driver = driver
 
     def sale_menu(self):
-        menu_venta = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located(self.ventas_menu))
-        WebDriverWait(self.driver, 20).until(EC.invisibility_of_element(self.loading))
+        menu_venta = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.ventas_menu))
+        WebDriverWait(self.driver, 30).until(EC.invisibility_of_element(self.loading))
         menu_venta.click()
 
     def click_button_new_sale(self):
-        button_new = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.button_new))
+        button_new = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.button_new))
         button_new.click()
 
     def click_button_save_new_sale(self):
-        button_save = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.button_save))
+        button_save = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.button_save))
         button_save.click()
 
     def quantity_sale(self):
-        quantity_venta = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.quantity_ventas))
+        quantity_venta = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.quantity_ventas))
         return int(quantity_venta.text.replace('Total: ', ''))
 
     def click_delete_sale(self):
-        eliminar_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.eliminar_button))
+        eliminar_button = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.eliminar_button))
         eliminar_button.click()
-        aceptar_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.aceptar_button))
+        aceptar_button = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.aceptar_button))
         aceptar_button.click()
 
 

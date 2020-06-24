@@ -22,7 +22,7 @@ class SalesCaseSuite(unittest.TestCase):
         self.FormsSalesPage = Pagesalesforms(self.driver)
         data = {
             'email': 'ricardonicolastasovac@gmail.com',
-            'password': 'velezcapo'}
+            'password': 'mamapulpa'}
         self.IndexPage.Enterokay()
         self.LoginPage.login(data)
 

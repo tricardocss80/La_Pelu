@@ -16,21 +16,24 @@ class Pageemployees:
         self.driver = driver
 
     def menu_click_employees(self):
-        menu_employees = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located(self.employees_menu))
-        WebDriverWait(self.driver, 20).until(EC.invisibility_of_element(self.loading))
+        menu_employees = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.employees_menu))
+        WebDriverWait(self.driver, 30).until(EC.invisibility_of_element(self.loading))
         menu_employees.click()
 
     def new_employees(self):
-        new_button = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(self.new_button))
+        new_button = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.new_button))
         new_button.click()
 
     def form_employees(self, name):
-        self.driver.find_element(*self.intput_name).send_keys(name)
-        button_guardar = WebDriverWait(self.driver, 4).until(EC.element_to_be_clickable(self.button_guardar))
-        self.driver.find_element(*self.intput_local).click()
-        self.driver.find_element(*self.intput_local_selected).click()
+        intput_name = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_name))
+        intput_name.send_keys(name)
+        button_guardar = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.button_guardar))
+        intput_local = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_local))
+        intput_local.click()
+        intput_local_selected = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_local_selected))
+        intput_local_selected.click()
         button_guardar.click()
 
     def quantity_employee(self):
-        quantity_employee = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.quantity_employees))
+        quantity_employee = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.quantity_employees))
         return int(quantity_employee.text.replace('Total: ', ''))

@@ -9,5 +9,5 @@ class Pageindex:
         self.driver = driver
 
     def Enterokay(self):
-        button_ingresar = WebDriverWait(self.driver, 4).until(EC.element_to_be_clickable(self.ingresar_button))
+        button_ingresar = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.ingresar_button))
         button_ingresar.click()
