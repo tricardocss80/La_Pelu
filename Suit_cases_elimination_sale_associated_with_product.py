@@ -7,11 +7,14 @@ from pageproduct import Pageproduct
 from pageclient import Pageclient
 from pageemployees import Pageemployees
 from pagesalesforms import Pagesalesforms
+from selenium.webdriver.chrome.options import Options
 
 
 class SalesCaseSuite(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome('Chromedriver.exe')
+        option = Options()
+        option.add_argument('start-maximized')
+        self.driver = webdriver.Chrome('Chromedriver.exe', options=option)
         self.driver.get('https://www.lapelu.com.ar/')
         self.IndexPage = Pageindex(self.driver)
         self.LoginPage = Pagelogin(self.driver)
