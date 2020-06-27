@@ -1,11 +1,10 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
+from page_common_methods import PageCommonMethods
 
 
-class Pageclient:
+class Pageclient(PageCommonMethods):
     def __init__(self, driver):
+        super().__init__(driver)
         self.clientes_menu = (By.XPATH, '//a[@href="/client"]')
         self.loading = (By.XPATH, '//div[@class="overlay"]')
         self.new_button = (By.XPATH, '//button[contains(.,"Nuevo")]')
@@ -20,30 +19,25 @@ class Pageclient:
         self.driver = driver
 
     def menu_click_client(self):
-        menu_clientes = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.clientes_menu))
-        WebDriverWait(self.driver, 30).until(EC.invisibility_of_element(self.loading))
-        menu_clientes.click()
+        self.wait_clickable(self.clientes_menu).click()
 
     def new_client(self):
-        new_button = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.new_button))
-        new_button.click()
+        self.wait_clickable(self.new_button).click()
 
     def form_client(self, data_client):
-        intput_nickname = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_nickname))
-        intput_nickname.send_keys(data_client['nickname'])
-        intput_name = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_name))
-        intput_name.send_keys(data_client['name'])
-        intput_surname = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_surname))
-        intput_surname.send_keys(data_client['surname'])
-        intput_email = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_email))
-        intput_email.send_keys(data_client['email'])
-        intput_phone = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_phone))
-        intput_phone.send_keys(data_client['phone'])
-        intput_direction = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.intput_direction))
-        intput_direction.send_keys(data_client['direction'])
-        button_guardar = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.button_guardar))
-        button_guardar.click()
+        self.wait_presence(self.intput_nickname).send_keys(data_client['nickname'])
+        self.wait_presence(self.intput_name).send_keys(data_client['name'])
+        self.wait_presence(self.intput_surname).send_keys(data_client['surname'])
+        self.wait_presence(self.intput_email).send_keys(data_client['email'])
+        self.wait_presence(self.intput_phone).send_keys(data_client['phone'])
+        self.wait_presence(self.intput_direction).send_keys(data_client['direction'])
+        self.wait_clickable(self.button_guardar).click()
 
     def quantity_client(self):
-        quantity_client = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.quantity_clients))
-        return int(quantity_client.text.replace('Total: ', ''))
+        try:
+            quantity_client = self.driver.find_element(*self.quantity_clients)
+            self.driver.save_screenshot('time_error.png')
+            return int(quantity_client.text.replace('Total: ', ''))
+        except Exception as e:
+            print(e)
+            return 0
