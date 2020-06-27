@@ -25,7 +25,6 @@ class Pageemployees(PageCommonMethods):
     def form_employees(self, name):
         self.wait_presence(self.intput_name).send_keys(name)
         self.wait_presence(self.intput_local).click()
-        self.driver.save_screenshot('hola.png')
         self.wait_presence(self.intput_local_selected).click()
         self.wait_clickable(self.button_guardar).click()
 

@@ -15,7 +15,7 @@ class SalesCaseSuite(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         option = Options()
-        #option.add_argument('--headless')
+        option.add_argument('--headless')
         self.driver = webdriver.Chrome('Chromedriver.exe', options=option)
         self.driver.get('https://www.lapelu.com.ar/')
         self.driver.set_window_size(1920, 1080)
