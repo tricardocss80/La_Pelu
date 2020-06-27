@@ -1,23 +1,22 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from page_common_methods import PageCommonMethods
 
 
-class Pagelogin:
+class Pagelogin(PageCommonMethods):
     def __init__(self, driver):
+        super().__init__(driver)
         self.input_email = (By.NAME, 'email')
         self.input_password = (By.NAME, 'password')
         self.aceptar_button = (By.XPATH, '//button[@type="submit"]')
         self.driver = driver
 
     def login(self, data):
-        email = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.input_email))
+        email = self.wait_presence(self.input_email)
         email.clear()
         email.send_keys(data['email'])
-        password = WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(self.input_password))
+        password = self.wait_presence(self.input_password)
         password.clear()
         password.send_keys(data['password'])
-        aceptar_button = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self.aceptar_button))
-        aceptar_button.click()
+        self.wait_clickable(self.aceptar_button).click()
 
 

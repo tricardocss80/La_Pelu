@@ -32,7 +32,6 @@ class Pagesales(PageCommonMethods):
     def quantity_sales(self):
         try:
             quantity_sale = self.driver.find_element(*self.quantity_sales_locator)
-            self.driver.save_screenshot('sales_time_error.png')
             return int(quantity_sale.text.replace('Total: ', ''))
         except Exception as e:
             print(e)

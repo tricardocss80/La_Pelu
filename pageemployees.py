@@ -32,7 +32,6 @@ class Pageemployees(PageCommonMethods):
     def quantity_employee(self):
         try:
             quantity_employee = self.driver.find_element(*self.quantity_employees)
-            self.driver.save_screenshot('time_error.png')
             return int(quantity_employee.text.replace('Total: ', ''))
         except Exception as e:
             print(e)

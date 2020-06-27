@@ -11,7 +11,7 @@ class PageCommonMethods:
 
     def wait_overlay(self):
         WebDriverWait(self.driver, 30).until(EC.invisibility_of_element_located(self.loading))
-        time.sleep(2)
+        time.sleep(1)
 
     def wait_clickable(self, locator):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(locator))

@@ -36,7 +36,6 @@ class Pageclient(PageCommonMethods):
     def quantity_client(self):
         try:
             quantity_client = self.driver.find_element(*self.quantity_clients)
-            self.driver.save_screenshot('time_error.png')
             return int(quantity_client.text.replace('Total: ', ''))
         except Exception as e:
             print(e)

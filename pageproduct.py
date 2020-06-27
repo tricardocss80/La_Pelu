@@ -37,7 +37,6 @@ class Pageproduct(PageCommonMethods):
     def quantity_products(self):
         try:
             quantity_products = self.driver.find_element(*self.quantity_product)
-            self.driver.save_screenshot('time_error.png')
             return int(quantity_products.text.replace('Total: ', ''))
         except Exception as e:
             print(e)
