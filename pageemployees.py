@@ -7,11 +7,10 @@ class Pageemployees(PageCommonMethods):
     def __init__(self, driver):
         super().__init__(driver)
         self.employees_menu = (By.XPATH, '//a[@href="/employee"]')
-        self.loading = (By.XPATH, '//div[@class="overlay"]')
         self.new_button = (By.XPATH, '//button[contains(.,"Nuevo")]')
         self.intput_name = (By.XPATH, '//input[@name="name"]')
         self.intput_local = (By.XPATH, '//div[@class="css-1pcexqc-container LocationListComponent full-width"]')
-        self.intput_local_selected = (By.XPATH, '//div[contains(@class,"css-dpec0i-option")]')
+        self.intput_local_selected = (By.XPATH, '//div[@class="css-dpec0i-option"][contains(.,"Mi Negocio")]')
         self.button_guardar = (By.XPATH, '//button[contains(.,"Guardar")]')
         self.quantity_employees = (By.XPATH, '//div[@class="pagination"]//ul[@class="nav"]')
         self.driver = driver

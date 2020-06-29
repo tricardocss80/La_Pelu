@@ -15,7 +15,7 @@ class SalesCaseSuite(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         option = Options()
-        option.add_argument('--headless')
+        #option.add_argument('--headless')
         self.driver = webdriver.Chrome('Chromedriver.exe', options=option)
         self.driver.get('https://www.lapelu.com.ar/')
         self.driver.set_window_size(1920, 1080)
@@ -26,7 +26,7 @@ class SalesCaseSuite(unittest.TestCase):
         self.ClientPage = Pageclient(self.driver)
         self.EmployeesPage = Pageemployees(self.driver)
         self.FormsSalesPage = Pagesalesforms(self.driver)
-        data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'mamapulpa'}
+        data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'sarasa10'}
         self.IndexPage.Enterokay()
         self.LoginPage.login(data)
 
