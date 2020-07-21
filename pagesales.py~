@@ -11,6 +11,7 @@ class Pagesales(PageCommonMethods):
         self.loading = (By.XPATH, '//div[@class="overlay"]')
         self.eliminar_button = (By.XPATH, '(//button[contains(text(),"Eliminar")])[1]')
         self.aceptar_button = (By.XPATH, '//button[@class="btn btn-danger"]')
+        self.button_save = (By.XPATH, '//button[contains(.,"Guardar")]')
         self.driver = driver
 
     def sale_menu(self):
@@ -18,6 +19,9 @@ class Pagesales(PageCommonMethods):
 
     def click_button_new_sale(self):
         self.wait_clickable(self.button_new).click()
+
+    def click_button_save_new_sale(self):
+        self.wait_clickable(self.button_save).click()
 
     def click_delete_sale(self):
         self.wait_clickable(self.eliminar_button).click()

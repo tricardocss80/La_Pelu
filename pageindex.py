@@ -1,7 +1,5 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from page_common_methods import PageCommonMethods
+from pagecommonmethods import PageCommonMethods
 
 
 class Pageindex(PageCommonMethods):
@@ -10,5 +8,5 @@ class Pageindex(PageCommonMethods):
         self.ingresar_button = (By.XPATH, '//a[contains(.,"Ingresar")]')
         self.driver = driver
 
-    def Enterokay(self):
+    def Enterok(self):
         self.wait_clickable(self.ingresar_button).click()

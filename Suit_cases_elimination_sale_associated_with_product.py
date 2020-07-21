@@ -26,8 +26,8 @@ class SalesCaseSuite(unittest.TestCase):
         self.ClientPage = Pageclient(self.driver)
         self.EmployeesPage = Pageemployees(self.driver)
         self.FormsSalesPage = Pagesalesforms(self.driver)
-        data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'sarasa10'}
-        self.IndexPage.Enterokay()
+        data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'Pia1juli'}
+        self.IndexPage.Enterok()
         self.LoginPage.login(data)
 
         # Crear un nuevo producto
@@ -38,22 +38,25 @@ class SalesCaseSuite(unittest.TestCase):
         self.ProductPage.menu_click_products_list()
         self.ProductPage.wait_overlay()
         quantity_products_initial = self.ProductPage.quantity_products()
-        self.ProductPage.new_product()
+        self.ProductPage.click_new_button()
         self.ProductPage.form_new_product(data_product)
+        self.ProductPage.click_save_button()
         self.ProductPage.wait_overlay()
         quantity_products_final = self.ProductPage.quantity_products()
         self.assertEqual(quantity_products_final, quantity_products_initial + 1)
 
     # Crear un cliente
     def test002_create_client(self):
-        data_client = {'nickname': 'Maria-'+uuid.uuid1().hex, 'name': 'Maria', 'surname': 'Lopez', 'email': 'martitalopez@gmail.com',
+        data_client = {'nickname': 'Maria-' + uuid.uuid1().hex, 'name': 'Maria', 'surname': 'Lopez',
+                       'email': 'martitalopez@gmail.com',
                        'phone': '1133551331', 'direction': 'Marcopolo 1013'}
         self.ClientPage.wait_overlay()
         self.ClientPage.menu_click_client()
         self.ClientPage.wait_overlay()
         quantity_clients_initial = self.ClientPage.quantity_client()
-        self.ClientPage.new_client()
+        self.ClientPage.click_new_button()
         self.ClientPage.form_client(data_client)
+        self.ClientPage.click_save_button()
         self.ClientPage.wait_overlay()
         quantity_clients_final = self.ClientPage.quantity_client()
         self.assertEqual(quantity_clients_final, quantity_clients_initial + 1)
@@ -65,8 +68,9 @@ class SalesCaseSuite(unittest.TestCase):
         self.EmployeesPage.menu_click_employees()
         self.EmployeesPage.wait_overlay()
         quantity_employees_initial = self.EmployeesPage.quantity_employee()
-        self.EmployeesPage.new_employees()
+        self.EmployeesPage.click_new_button()
         self.EmployeesPage.form_employees(name)
+        self.EmployeesPage.click_save_button()
         self.EmployeesPage.wait_overlay()
         quantity_employees_final = self.EmployeesPage.quantity_employee()
         self.assertEqual(quantity_employees_final, quantity_employees_initial + 1)
@@ -81,7 +85,7 @@ class SalesCaseSuite(unittest.TestCase):
         self.SalesPage.click_button_new_sale()
         self.FormsSalesPage.form_new_sales(data_sale)
         self.FormsSalesPage.sub_form_product(data_sale)
-        self.SalesPage.click_button_save_new_sale()
+        self.SalesPage.click_save_button()
         self.SalesPage.wait_overlay()
         quantity_sales_final = self.SalesPage.quantity_sales()
         self.assertEqual(quantity_sales_final, quantity_sales_initial + 1)

@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from page_common_methods import PageCommonMethods
+from pagecommonmethods import PageCommonMethods
 
 
 class Pagelogin(PageCommonMethods):
