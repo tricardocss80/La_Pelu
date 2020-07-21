@@ -12,7 +12,6 @@ class Pageproduct(PageCommonMethods):
         self.intput_price = (By.XPATH, '//input[@name="price"]')
         self.intput_total = (By.XPATH, '//input[@placeholder="Cantidad"]')
         self.intput_minimum = (By.XPATH, '//input[@placeholder="Mínimo"]')
-        self.quantity_product = (By.XPATH, '//div[@class="pagination"]//ul[@class="nav"]')
         self.driver = driver
 
     def menu_click_products(self):
@@ -27,12 +26,3 @@ class Pageproduct(PageCommonMethods):
         self.wait_presence(self.intput_price).send_keys(data_product['price'])
         self.wait_presence(self.intput_total).send_keys(data_product['total'])
         self.wait_presence(self.intput_minimum).send_keys(data_product['minimum'])
-
-    def quantity_products(self):
-        try:
-            quantity_products = self.driver.find_element(*self.quantity_product)
-            return int(quantity_products.text.replace('Total: ', ''))
-        except Exception as e:
-            print(e)
-            return 0
-

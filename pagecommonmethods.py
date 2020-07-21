@@ -9,6 +9,8 @@ class PageCommonMethods:
         self.loading = (By.XPATH, '//div[@class="overlay"]')
         self.new_button = (By.XPATH, '//button[contains(.,"Nuevo")]')
         self.save_button = (By.XPATH, '//button[contains(text(),"Guardar")]')
+        self.block_error = (By.XPATH, '//div[@class="toast-title"]')
+        self.quantity_items = (By.XPATH, '//div[@class="pagination"]//ul[@class="nav"]')
         self.driver = driver
 
     def wait_overlay(self):
@@ -26,6 +28,17 @@ class PageCommonMethods:
 
     def wait_presence(self, locator):
         return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(locator))
+
+    def asser_block_error(self):
+        return self.wait_presence(self.block_error).text
+
+    def quantity(self):
+        try:
+            quantity = self.driver.find_element(*self.quantity_items)
+            return int(quantity.text.replace('Total: ', ''))
+        except Exception as e:
+            print(e)
+            return 0
 
     def close_browser(self):
         self.driver.close()

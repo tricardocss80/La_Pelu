@@ -37,13 +37,13 @@ class SalesCaseSuite(unittest.TestCase):
         self.ProductPage.menu_click_products()
         self.ProductPage.menu_click_products_list()
         self.ProductPage.wait_overlay()
-        quantity_products_initial = self.ProductPage.quantity_products()
+        quantity_initial = self.ProductPage.quantity()
         self.ProductPage.click_new_button()
         self.ProductPage.form_new_product(data_product)
         self.ProductPage.click_save_button()
         self.ProductPage.wait_overlay()
-        quantity_products_final = self.ProductPage.quantity_products()
-        self.assertEqual(quantity_products_final, quantity_products_initial + 1)
+        quantity_final = self.ProductPage.quantity()
+        self.assertEqual(quantity_final, quantity_initial + 1)
 
     # Crear un cliente
     def test002_create_client(self):
@@ -53,13 +53,13 @@ class SalesCaseSuite(unittest.TestCase):
         self.ClientPage.wait_overlay()
         self.ClientPage.menu_click_client()
         self.ClientPage.wait_overlay()
-        quantity_clients_initial = self.ClientPage.quantity_client()
+        quantity_initial = self.ClientPage.quantity()
         self.ClientPage.click_new_button()
         self.ClientPage.form_client(data_client)
         self.ClientPage.click_save_button()
         self.ClientPage.wait_overlay()
-        quantity_clients_final = self.ClientPage.quantity_client()
-        self.assertEqual(quantity_clients_final, quantity_clients_initial + 1)
+        quantity_final = self.ClientPage.quantity()
+        self.assertEqual(quantity_final, quantity_initial + 1)
 
     # Crear un empleado
     def test003_crate_employees(self):
@@ -67,13 +67,13 @@ class SalesCaseSuite(unittest.TestCase):
         self.EmployeesPage.wait_overlay()
         self.EmployeesPage.menu_click_employees()
         self.EmployeesPage.wait_overlay()
-        quantity_employees_initial = self.EmployeesPage.quantity_employee()
+        quantity_initial = self.EmployeesPage.quantity()
         self.EmployeesPage.click_new_button()
         self.EmployeesPage.form_employees(name)
         self.EmployeesPage.click_save_button()
         self.EmployeesPage.wait_overlay()
-        quantity_employees_final = self.EmployeesPage.quantity_employee()
-        self.assertEqual(quantity_employees_final, quantity_employees_initial + 1)
+        quantity_final = self.EmployeesPage.quantity()
+        self.assertEqual(quantity_final, quantity_initial + 1)
 
     # Crear una venta con cliente, producto y empleado existentes
     def test004_Create_sale_with_existing_customer_product_employee(self):
@@ -81,25 +81,25 @@ class SalesCaseSuite(unittest.TestCase):
         self.SalesPage.wait_overlay()
         self.SalesPage.sale_menu()
         self.SalesPage.wait_overlay()
-        quantity_sales_initial = self.SalesPage.quantity_sales()
+        quantity_initial = self.SalesPage.quantity()
         self.SalesPage.click_button_new_sale()
         self.FormsSalesPage.form_new_sales(data_sale)
         self.FormsSalesPage.sub_form_product(data_sale)
         self.SalesPage.click_save_button()
         self.SalesPage.wait_overlay()
-        quantity_sales_final = self.SalesPage.quantity_sales()
-        self.assertEqual(quantity_sales_final, quantity_sales_initial + 1)
+        quantity_final = self.SalesPage.quantity()
+        self.assertEqual(quantity_final, quantity_initial + 1)
 
      #eliminar una venta asociada a un producto eliminado
     def test005_remove_sale_associated_with_removed_product(self):
         self.SalesPage.wait_overlay()
         self.SalesPage.sale_menu()
         self.SalesPage.wait_overlay()
-        quantity_sales_initial = self.SalesPage.quantity_sales()
+        quantity_initial = self.SalesPage.quantity()
         self.SalesPage.click_delete_sale()
         self.SalesPage.wait_overlay()
-        quantity_sales_final = self.SalesPage.quantity_sales()
-        self.assertEqual(quantity_sales_final, quantity_sales_initial - 1)
+        quantity_final = self.SalesPage.quantity()
+        self.assertEqual(quantity_final, quantity_initial - 1)
         self.SalesPage.close_browser()
 
 

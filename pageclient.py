@@ -13,11 +13,7 @@ class Pageclient(PageCommonMethods):
         self.intput_email = (By.XPATH, '//input[@name="email"]')
         self.intput_phone = (By.XPATH, '//input[@name="phone"]')
         self.intput_direction = (By.XPATH, '//input[@name="direction"]')
-        self.quantity_clients = (By.XPATH, '//div[@class="pagination"]//ul[@class="nav"]')
         self.driver = driver
-
-
-
 
     def menu_click_client(self):
         self.wait_clickable(self.clientes_menu).click()
@@ -29,11 +25,3 @@ class Pageclient(PageCommonMethods):
         self.wait_presence(self.intput_email).send_keys(data_client['email'])
         self.wait_presence(self.intput_phone).send_keys(data_client['phone'])
         self.wait_presence(self.intput_direction).send_keys(data_client['direction'])
-
-    def quantity_client(self):
-        try:
-            quantity_client = self.driver.find_element(*self.quantity_clients)
-            return int(quantity_client.text.replace('Total: ', ''))
-        except Exception as e:
-            print(e)
-            return 0

@@ -11,7 +11,6 @@ class Pageemployees(PageCommonMethods):
         self.intput_local = (By.XPATH, '//div[@class="css-1pcexqc-container LocationListComponent full-width"]')
         self.intput_local_selected = (By.XPATH, '//div[@class="css-dpec0i-option"][contains(.,"Mi Negocio")]')
         self.save_button = (By.XPATH, '//button[contains(text(),"Guardar")]')
-        self.quantity_employees = (By.XPATH, '//div[@class="pagination"]//ul[@class="nav"]')
         self.driver = driver
 
     def menu_click_employees(self):
@@ -21,11 +20,3 @@ class Pageemployees(PageCommonMethods):
         self.wait_presence(self.intput_name).send_keys(name)
         self.wait_presence(self.intput_local).click()
         self.wait_presence(self.intput_local_selected).click()
-
-    def quantity_employee(self):
-        try:
-            quantity_employee = self.driver.find_element(*self.quantity_employees)
-            return int(quantity_employee.text.replace('Total: ', ''))
-        except Exception as e:
-            print(e)
-            return 0
