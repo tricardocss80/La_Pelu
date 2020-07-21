@@ -11,6 +11,7 @@ class PageCommonMethods:
         self.save_button = (By.XPATH, '//button[contains(text(),"Guardar")]')
         self.block_error = (By.XPATH, '//div[@class="toast-title"]')
         self.quantity_items = (By.XPATH, '//div[@class="pagination"]//ul[@class="nav"]')
+        self.accept_button = (By.XPATH, '//button[@class="btn btn-danger"]')
         self.driver = driver
 
     def wait_overlay(self):
@@ -39,6 +40,10 @@ class PageCommonMethods:
         except Exception as e:
             print(e)
             return 0
+
+    def click_accept_button(self):
+        self.wait_clickable(self.accept_button).click()
+
 
     def close_browser(self):
         self.driver.close()

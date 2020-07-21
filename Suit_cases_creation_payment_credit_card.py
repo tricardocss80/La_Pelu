@@ -34,6 +34,7 @@ class PaymentCasesSuit(unittest.TestCase):
         self.PaymentPage.wait_overlay()
         self.assertEqual('Error!', self.PaymentPage.asser_block_error())
         self.assertEqual('El nombre debe tener al menos 3 letras', self.PaymentPage.asser_error())
+        self.PaymentPage.close_browser()
 
     #Intentar crear metodo de pago  ingresando caracteres especiales
     @unittest.skip
@@ -65,7 +66,7 @@ class PaymentCasesSuit(unittest.TestCase):
         self.assertEqual('Error!', self.PaymentPage.asser_block_error())
         self.assertEqual('El nombre debe tener al menos 3 letras', self.PaymentPage.asser_error())
 
-    #Camino feliz
+    #Crear un metodo de pago con tarjeta de crédito(Camino feliz)
     def test_004_create_credit_card_payment_method(self):
         data = {'name': 'Tarjeta de crédito'}
         self.PaymentPage.wait_overlay()
@@ -79,13 +80,22 @@ class PaymentCasesSuit(unittest.TestCase):
         self.PaymentPage.wait_overlay()
         quantity_final = self.PaymentPage.quantity()
         self.assertEqual(quantity_final, quantity_initial + 1)
+        self.PaymentPage.close_browser()
 
-     # Camino feliz
-    def test_005_create_credit_card_payment_method(self):
+     # Eliminar el metodo de pago tarjeta de crédito(Camino feliz)
+    def test_005_delete_credit_card_payment_method(self):
+        self.PaymentPage.wait_overlay()
         self.PaymentPage.click_button_config()
         self.PaymentPage.click_button_payment()
         self.PaymentPage.wait_overlay()
+        quantity_initial = self.PaymentPage.quantity()
+        self.PaymentPage.deactivate_button()
+        self.PaymentPage.click_accept_button()
+        self.PaymentPage.wait_overlay()
+        quantity_final = self.PaymentPage.quantity()
+        self.assertEqual(quantity_final, quantity_initial - 1)
+        self.PaymentPage.close_browser()
 
-        print('hola')
-        print(self.driver.find_element_by_class_name('btn btn-primary[0]').text)
-        print('hola')
+
+if __name__ == '__main__':
+    unittest.main()

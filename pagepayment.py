@@ -11,7 +11,7 @@ class PagePayment(PageCommonMethods):
         self.intput_name = (By.XPATH, '//input[@placeholder="Nombre"]')
         self.assert_new_payment = (By.XPATH, '//td[contains(text(),"Tarjeta de crédito")]')
         self.error = (By.XPATH, '//div[@class="toast-message"]')
-        self.delete_paymethod = (By.CLASS_NAME, 'btn btn-primary[1]')
+        self.button_deactivate = (By.XPATH, '(//button[contains(.,"Desactivar")])[2]')
         self.driver = driver
 
     def click_button_config(self):
@@ -28,5 +28,8 @@ class PagePayment(PageCommonMethods):
 
     def assert_new_payment_method(self):
         return self.wait_presence(self.assert_new_payment).text
+
+    def deactivate_button(self):
+        self.wait_clickable(self.button_deactivate).click()
 
 
