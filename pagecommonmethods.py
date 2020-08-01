@@ -7,11 +7,17 @@ import time
 class PageCommonMethods:
     def __init__(self, driver):
         self.loading = (By.XPATH, '//div[@class="overlay"]')
-        self.new_button = (By.XPATH, '//button[contains(.,"Nuevo")]')
+        self.new_button = (By.XPATH, '//button[contains(text(),"Nuevo")]')
         self.save_button = (By.XPATH, '//button[contains(text(),"Guardar")]')
         self.block_error = (By.XPATH, '//div[@class="toast-title"]')
         self.quantity_items = (By.XPATH, '//div[@class="pagination"]//ul[@class="nav"]')
         self.accept_button = (By.XPATH, '//button[@class="btn btn-danger"]')
+        self.cancel_button = (By.XPATH, '//button[@type="button"][contains(.,"Cancelar")]')
+        self.button_add_save = (By.XPATH, '//button[contains(.,"Agregar")]')
+        self.button_add_service = (By.XPATH, '//button[contains(text(),"+ Servicio")]')
+        self.button_add_product = (By.XPATH, '//button[contains(text(),"+ Producto")]')
+        self.dropdown_list = (By.XPATH, '//div[contains(@class,"css-dpec0i-option")]')
+        self.payment_method = (By.NAME, 'name')
         self.driver = driver
 
     def wait_overlay(self):
@@ -44,7 +50,25 @@ class PageCommonMethods:
     def click_accept_button(self):
         self.wait_clickable(self.accept_button).click()
 
+    def click_cancel_button(self):
+        self.wait_clickable(self.cancel_button).click()
+
+    def add_service(self):
+        self.wait_clickable(self.button_add_service).click()
+
+    def add_product(self):
+        self.wait_clickable(self.button_add_product).click()
+
+    def item_add_save(self):
+        self.wait_clickable(self.button_add_save).click()
+
+    def dropdown_item_list(self):
+        self.wait_presence(self.dropdown_list).click()
 
     def close_browser(self):
         self.driver.close()
         self.driver.quit()
+
+    def return_price(self, index):
+        price = self.driver.find_elements(*self.payment_method)[index].get_attribute('value')
+        return int(price)

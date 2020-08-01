@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 from selenium import webdriver
 from pageindex import Pageindex
@@ -17,7 +18,7 @@ class SalesCaseSuite(unittest.TestCase):
         option = Options()
         #option.add_argument('--headless')
         self.driver = webdriver.Chrome('Chromedriver.exe', options=option)
-        self.driver.get('https://www.lapelu.com.ar/')
+        self.driver.get('https://stg-admin.lapelu.com.ar/')
         self.driver.set_window_size(1920, 1080)
         self.IndexPage = Pageindex(self.driver)
         self.LoginPage = Pagelogin(self.driver)
@@ -27,7 +28,6 @@ class SalesCaseSuite(unittest.TestCase):
         self.EmployeesPage = Pageemployees(self.driver)
         self.FormsSalesPage = Pagesalesforms(self.driver)
         data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'Pia1juli'}
-        self.IndexPage.Enterok()
         self.LoginPage.login(data)
 
         # Crear un nuevo producto
@@ -84,7 +84,12 @@ class SalesCaseSuite(unittest.TestCase):
         quantity_initial = self.SalesPage.quantity()
         self.SalesPage.click_button_new_sale()
         self.FormsSalesPage.form_new_sales(data_sale)
+        self.FormsSalesPage.add_product()
+        self.FormsSalesPage.sub_form_employees()
         self.FormsSalesPage.sub_form_product(data_sale)
+        self.FormsSalesPage.dropdown_item_list()
+        self.FormsSalesPage.sub_form_quantity(data_sale)
+        self.FormsSalesPage.item_add_save()
         self.SalesPage.click_save_button()
         self.SalesPage.wait_overlay()
         quantity_final = self.SalesPage.quantity()
@@ -92,11 +97,9 @@ class SalesCaseSuite(unittest.TestCase):
 
      #eliminar una venta asociada a un producto eliminado
     def test005_remove_sale_associated_with_removed_product(self):
-        self.SalesPage.wait_overlay()
-        self.SalesPage.sale_menu()
-        self.SalesPage.wait_overlay()
         quantity_initial = self.SalesPage.quantity()
         self.SalesPage.click_delete_sale()
+        self.SalesPage.click_accept_button()
         self.SalesPage.wait_overlay()
         quantity_final = self.SalesPage.quantity()
         self.assertEqual(quantity_final, quantity_initial - 1)

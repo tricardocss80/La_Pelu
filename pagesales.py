@@ -7,8 +7,8 @@ class Pagesales(PageCommonMethods):
         super().__init__(driver)
         self.sales_menu = (By.XPATH, '//li[@class="nav-item"][contains(.,"Ventas")]')
         self.button_new = (By.XPATH, '//a[contains(.,"Nueva")]')
-        self.loading = (By.XPATH, '//div[@class="overlay"]')
         self.delete_button = (By.XPATH, '(//button[contains(text(),"Eliminar")])[1]')
+
         self.driver = driver
 
     def sale_menu(self):
@@ -19,4 +19,3 @@ class Pagesales(PageCommonMethods):
 
     def click_delete_sale(self):
         self.wait_clickable(self.delete_button).click()
-
