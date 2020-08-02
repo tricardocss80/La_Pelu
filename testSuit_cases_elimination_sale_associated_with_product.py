@@ -95,7 +95,7 @@ class SalesCaseSuite(unittest.TestCase):
         quantity_final = self.SalesPage.quantity()
         self.assertEqual(quantity_final, quantity_initial + 1)
 
-     #eliminar una venta asociada a un producto eliminado
+     #Eliminar una venta asociada a un producto eliminado
     def test005_remove_sale_associated_with_removed_product(self):
         quantity_initial = self.SalesPage.quantity()
         self.SalesPage.click_delete_sale()
