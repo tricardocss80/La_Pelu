@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from pagecommonmethods import PageCommonMethods
+from page_objects.pagecommonmethods import PageCommonMethods
 
 
 class Pagesalesforms(PageCommonMethods):
@@ -48,15 +48,13 @@ class Pagesalesforms(PageCommonMethods):
         self.driver.find_elements(*self.payment_method)[index].send_keys(data_sale['credit card'])
 
     def price_total(self):
-        price = self.driver.find_element(*self.price)
-        string = price.text.replace('Total de la venta: $', '')
-        result = string.replace('.', '')
-        result_int = int(result.split(',')[0])
-        return result_int
+        price = self.driver.find_element(*self.price).text.replace('Total de la venta: $', '')
+        result = price.replace('.', '')
+        result_int = result.split(',')[0]
+        return int(result_int)
 
-    def assert_debt(self):
-        price = self.driver.find_element(*self.debt)
-        string = price.text.replace('Generar deuda por: $ ', '')
-        result = string.replace('.', '')
-        result_int = int(result.split(',')[0])
-        return result_int
+    def price_debt(self):
+        price = self.driver.find_element(*self.debt).text.replace('Generar deuda por: $ ', '')
+        result = price.replace('.', '')
+        result_int = result.split(',')[0]
+        return int(result_int)

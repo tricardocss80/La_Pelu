@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import unittest
 from selenium import webdriver
-from pageindex import Pageindex
-from pagelogin import Pagelogin
-from pagesales import Pagesales
-from pagedebt import PageDebt
-from pagesalesforms import Pagesalesforms
+from page_objects.pageindex import Pageindex
+from page_objects.pagelogin import Pagelogin
+from page_objects.pagesales import Pagesales
+from page_objects.pagedebt import PageDebt
+from page_objects.pagesalesforms import Pagesalesforms
 from selenium.webdriver.chrome.options import Options
 
 
@@ -13,8 +13,8 @@ class SalesCaseSuite(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         option = Options()
-        #option.add_argument('--headless')
-        self.driver = webdriver.Chrome('Chromedriver.exe', options=option)
+        option.add_argument('--headless')
+        self.driver = webdriver.Chrome('../drivers/chromedriver.exe', options=option)
         self.driver.get('https://stg-admin.lapelu.com.ar/')
         self.driver.set_window_size(1920, 1080)
         self.IndexPage = Pageindex(self.driver)
@@ -22,13 +22,13 @@ class SalesCaseSuite(unittest.TestCase):
         self.SalesPage = Pagesales(self.driver)
         self.FormsSalesPage = Pagesalesforms(self.driver)
         self.DebtPage = PageDebt(self.driver)
-        data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'Pia1juli'}
+        data = {'email': 'tricardocss@gmail.com', 'password': 'Velez300'}
         self.LoginPage.login(data)
 
     # Crear una venta pagando con dos metodos de pago diferentes y dejando una deuda
     def test001_create_sale_with_different_payment_methods(self):
         data_sale = {
-            'client': 'mar',
+            'client': 'maria',
             'service': 'tin',
             'cash': '400',
             'credit card': '500'
@@ -49,7 +49,9 @@ class SalesCaseSuite(unittest.TestCase):
         price_cash = self.FormsSalesPage.return_price(0)
         self.FormsSalesPage.payment_credit_card(1, data_sale)
         price_card = self.FormsSalesPage.return_price(1)
-        self.assertEqual(self.FormsSalesPage.assert_debt(), (price_total - price_cash - price_card))
+        self.FormsSalesPage.wait_overlay(0.1)
+        price_debt = self.FormsSalesPage.price_debt()
+        self.assertEqual(price_debt, (price_total - price_cash - price_card))
         self.SalesPage.click_save_button()
         self.SalesPage.wait_overlay()
         quantity_final = self.SalesPage.quantity()
@@ -57,6 +59,7 @@ class SalesCaseSuite(unittest.TestCase):
 
     # Saldar deuda adquirida
     def test002_pay_off_acquired_debt(self):
+        self.SalesPage.wait_overlay()
         self.DebtPage.click_menu_report()
         self.DebtPage.click_menu_dedt()
         self.DebtPage.wait_overlay()
@@ -72,6 +75,3 @@ class SalesCaseSuite(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-

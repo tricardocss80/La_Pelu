@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
-from pagecommonmethods import PageCommonMethods
-import time
+from page_objects.pagecommonmethods import PageCommonMethods
 
 
 class PagePayment(PageCommonMethods):

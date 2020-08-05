@@ -2,23 +2,23 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options  
-from pageindex import Pageindex
-from pagelogin import Pagelogin
-from pagepayment import PagePayment
+from page_objects.pageindex import Pageindex
+from page_objects.pagelogin import Pagelogin
+from page_objects.pagepayment import PagePayment
 
 
 class PaymentCasesSuit(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         option = Options()
-        # option.add_argument('--headless')
-        self.driver = webdriver.Chrome('Chromedriver.exe', options=option)
+        option.add_argument('--headless')
+        self.driver = webdriver.Chrome('../drivers/chromedriver.exe', options=option)
         self.driver.get('https://stg-admin.lapelu.com.ar/')
         self.driver.set_window_size(1920, 1080)
         self.IndexPage = Pageindex(self.driver)
         self.LoginPage = Pagelogin(self.driver)
         self.PaymentPage = PagePayment(self.driver)
-        data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'Pia1juli'}
+        data = {'email': 'tricardocss@gmail.com', 'password': 'Velez300'}
         self.LoginPage.login(data)
 
     #Intentar crear metodo de pago  dejando el campo vacio

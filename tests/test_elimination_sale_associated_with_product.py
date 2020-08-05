@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import unittest
 from selenium import webdriver
-from pageindex import Pageindex
-from pagelogin import Pagelogin
-from pagesales import Pagesales
-from pageproduct import Pageproduct
-from pageclient import Pageclient
-from pageemployees import Pageemployees
-from pagesalesforms import Pagesalesforms
+from page_objects.pageindex import Pageindex
+from page_objects.pagelogin import Pagelogin
+from page_objects.pagesales import Pagesales
+from page_objects.pageproduct import Pageproduct
+from page_objects.pageclient import Pageclient
+from page_objects.pageemployees import Pageemployees
+from page_objects.pagesalesforms import Pagesalesforms
 from selenium.webdriver.chrome.options import Options
 import uuid
 
@@ -16,8 +16,8 @@ class SalesCaseSuite(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         option = Options()
-        #option.add_argument('--headless')
-        self.driver = webdriver.Chrome('Chromedriver.exe', options=option)
+        option.add_argument('--headless')
+        self.driver = webdriver.Chrome('../drivers/chromedriver.exe', options=option)
         self.driver.get('https://stg-admin.lapelu.com.ar/')
         self.driver.set_window_size(1920, 1080)
         self.IndexPage = Pageindex(self.driver)
@@ -27,7 +27,7 @@ class SalesCaseSuite(unittest.TestCase):
         self.ClientPage = Pageclient(self.driver)
         self.EmployeesPage = Pageemployees(self.driver)
         self.FormsSalesPage = Pagesalesforms(self.driver)
-        data = {'email': 'ricardonicolastasovac@gmail.com', 'password': 'Pia1juli'}
+        data = {'email': 'tricardocss@gmail.com', 'password': 'Velez300'}
         self.LoginPage.login(data)
 
         # Crear un nuevo producto
@@ -70,6 +70,7 @@ class SalesCaseSuite(unittest.TestCase):
         quantity_initial = self.EmployeesPage.quantity()
         self.EmployeesPage.click_new_button()
         self.EmployeesPage.form_employees(name)
+        self.EmployeesPage.dropdown_item_list()
         self.EmployeesPage.click_save_button()
         self.EmployeesPage.wait_overlay()
         quantity_final = self.EmployeesPage.quantity()

@@ -20,9 +20,9 @@ class PageCommonMethods:
         self.payment_method = (By.NAME, 'name')
         self.driver = driver
 
-    def wait_overlay(self):
+    def wait_overlay(self, secons=1):
         WebDriverWait(self.driver, 30).until(EC.invisibility_of_element_located(self.loading))
-        time.sleep(1)
+        time.sleep(secons)
 
     def click_new_button(self):
         self.wait_clickable(self.new_button).click()

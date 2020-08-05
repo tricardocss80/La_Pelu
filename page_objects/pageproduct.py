@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from pagecommonmethods import PageCommonMethods
+from page_objects.pagecommonmethods import PageCommonMethods
 
 
 class Pageproduct(PageCommonMethods):

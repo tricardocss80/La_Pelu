@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
-from pagecommonmethods import PageCommonMethods
-import time
+from page_objects.pagecommonmethods import PageCommonMethods
 
 
 class Pageemployees(PageCommonMethods):
@@ -9,7 +8,7 @@ class Pageemployees(PageCommonMethods):
         self.employees_menu = (By.XPATH, '//a[@href="/employee"]')
         self.intput_name = (By.XPATH, '//input[@name="name"]')
         self.intput_local = (By.XPATH, '//div[@class="css-1pcexqc-container LocationListComponent full-width"]')
-        self.intput_local_selected = (By.XPATH, '//div[@class="css-dpec0i-option"][contains(.,"Mi Negocio")]')
+
         self.save_button = (By.XPATH, '//button[contains(text(),"Guardar")]')
         self.driver = driver
 
@@ -19,4 +18,3 @@ class Pageemployees(PageCommonMethods):
     def form_employees(self, name):
         self.wait_presence(self.intput_name).send_keys(name)
         self.wait_presence(self.intput_local).click()
-        self.wait_presence(self.intput_local_selected).click()
