@@ -1,6 +1,6 @@
 # La_Pelu - back office - https://www.lapelu.com.ar/
  
-1 SUITE QUE EJECUTA 3 GRABNDES CASOS DE PRUEBAS
+1 SUITE QUE EJECUTA 3 CASOS DE PRUEBAS
 
 ----CASO DE PRUEBA 1
 *Crear un nuevo producto
