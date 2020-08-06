@@ -19,8 +19,8 @@ class PagePayment(PageCommonMethods):
     def click_button_payment(self):
         self.wait_clickable(self.payment_method_button).click()
 
-    def intput_payment_method(self, data):
-        self.wait_presence(self.intput_name).send_keys(data['name'])
+    def intput_payment_method(self, sale_data):
+        self.wait_presence(self.intput_name).send_keys(sale_data)
 
     def asser_error(self):
         return self.wait_presence(self.error).text

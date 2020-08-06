@@ -1,0 +1,15 @@
+{
+
+ "login": {"email": "tricardocss@gmail.com", "password": "Velez300"},
+
+ "payment": {"none": "", "name": "Tarjeta de credito", "cash":  "400", "card":  "500"},
+
+ "products": {"name": "shampoo", "cost": "100", "price": "250", "total": "5", "minimum": "2"},
+
+ "client": {"nickname": "Maria", "name": "Maria", "surname": "Lopez", "email": "martitalopez@gmail.com", "phone": "1133551331",
+            "direction": "Marcopolo 1013"},
+
+  "employees": "Andres Sosa",
+
+  "sale": {"client": "mar", "service": "tin", "product": "sha", "quantity": "1"}
+}

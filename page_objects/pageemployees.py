@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from page_objects.pagecommonmethods import PageCommonMethods
+import uuid
 
 
 class Pageemployees(PageCommonMethods):
@@ -15,6 +16,6 @@ class Pageemployees(PageCommonMethods):
     def menu_click_employees(self):
         self.wait_clickable(self.employees_menu).click()
 
-    def form_employees(self, name):
-        self.wait_presence(self.intput_name).send_keys(name)
+    def form_employees(self, sale_data):
+        self.wait_presence(self.intput_name).send_keys(sale_data['employees'] + uuid.uuid1().hex)
         self.wait_presence(self.intput_local).click()

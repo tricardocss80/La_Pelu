@@ -20,32 +20,32 @@ class Pagesalesforms(PageCommonMethods):
         self.price = (By.XPATH, '//div[@class="text-right alert alert-primary fade show"]')
         self.driver = driver
 
-    def form_new_sales(self, data_sale):
-        self.wait_presence(self.intput_client_locator).send_keys(data_sale['client'])
+    def form_new_sales(self, sale_data):
+        self.wait_presence(self.intput_client_locator).send_keys(sale_data['sale']['client'])
         self.wait_presence(self.intput_client_list).click()
 
     def sub_form_employees(self):
         self.wait_presence(self.intput_item_employees).click()
         self.wait_presence(self.intput_item_employees_list).click()
 
-    def sub_form_product(self, data_sale):
-        self.wait_presence(self.intput_item_products_locator).send_keys(data_sale['product'])
+    def sub_form_product(self, sale_data):
+        self.wait_presence(self.intput_item_products_locator).send_keys(sale_data['sale']['product'])
 
-    def sub_form_service(self, data_sale):
-        self.wait_presence(self.intput_item_service_locator).send_keys(data_sale['service'])
+    def sub_form_service(self, sale_data):
+        self.wait_presence(self.intput_item_service_locator).send_keys(sale_data['sale']['service'])
 
-    def sub_form_quantity(self, data_sale):
+    def sub_form_quantity(self, sale_data):
         intput_item_product_quantity = self.wait_presence(self.intput_item_products_quantity)
         intput_item_product_quantity.clear()
-        intput_item_product_quantity.send_keys(data_sale['quantity'])
+        intput_item_product_quantity.send_keys(sale_data['sale']['quantity'])
 
     def payment_cash(self, index, data_sale):
         self.driver.find_elements(*self.payment_method)[index].clear()
-        self.driver.find_elements(*self.payment_method)[index].send_keys(data_sale['cash'])
+        self.driver.find_elements(*self.payment_method)[index].send_keys(data_sale['payment']['cash'])
 
     def payment_credit_card(self, index, data_sale):
         self.driver.find_elements(*self.payment_method)[index].clear()
-        self.driver.find_elements(*self.payment_method)[index].send_keys(data_sale['credit card'])
+        self.driver.find_elements(*self.payment_method)[index].send_keys(data_sale['payment']['card'])
 
     def price_total(self):
         price = self.driver.find_element(*self.price).text.replace('Total de la venta: $', '')

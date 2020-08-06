@@ -4,10 +4,6 @@ __pycache__/
 *$py.class
 
 drivers\
-page_objects/__init__.py
-suits/__init__.py
-tests/__init__.py
-
 
 
 *.jpg

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from selenium import webdriver
+import json
 from selenium.webdriver.chrome.options import Options  
 from page_objects.pageindex import Pageindex
 from page_objects.pagelogin import Pagelogin
@@ -18,18 +19,18 @@ class PaymentCasesSuit(unittest.TestCase):
         self.IndexPage = Pageindex(self.driver)
         self.LoginPage = Pagelogin(self.driver)
         self.PaymentPage = PagePayment(self.driver)
-        data = {'email': 'tricardocss@gmail.com', 'password': 'Velez300'}
-        self.LoginPage.login(data)
+        with open("../jsons/sale_data.json") as sale:
+            self.sale_data = json.loads(sale.read())
+        self.LoginPage.login(self.sale_data)
 
     #Intentar crear metodo de pago  dejando el campo vacio
     def test_001_try_create_credit_card_payment_method(self):
-        data = {'name': ''}
         self.PaymentPage.wait_overlay()
         self.PaymentPage.click_button_config()
         self.PaymentPage.click_button_payment()
         self.PaymentPage.wait_overlay()
         self.PaymentPage.click_new_button()
-        self.PaymentPage.intput_payment_method(data)
+        self.PaymentPage.intput_payment_method(self.sale_data['payment']['none'])
         self.PaymentPage.click_save_button()
         self.PaymentPage.wait_overlay()
         self.assertEqual('Error!', self.PaymentPage.asser_block_error())
@@ -38,10 +39,9 @@ class PaymentCasesSuit(unittest.TestCase):
 
     #Crear un metodo de pago con tarjeta de crédito(Camino feliz)
     def test_002_create_credit_card_payment_method(self):
-        data = {'name': 'Tarjeta de crédito'}
         quantity_initial = self.PaymentPage.quantity()
         self.PaymentPage.click_new_button()
-        self.PaymentPage.intput_payment_method(data)
+        self.PaymentPage.intput_payment_method(self.sale_data['payment']['name'])
         self.PaymentPage.click_save_button()
         self.PaymentPage.wait_overlay()
         quantity_final = self.PaymentPage.quantity()

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from page_objects.pagecommonmethods import PageCommonMethods
+import uuid
 
 
 class Pageclient(PageCommonMethods):
@@ -19,9 +20,9 @@ class Pageclient(PageCommonMethods):
         self.wait_clickable(self.clientes_menu).click()
 
     def form_client(self, data_client):
-        self.wait_presence(self.intput_nickname).send_keys(data_client['nickname'])
-        self.wait_presence(self.intput_name).send_keys(data_client['name'])
-        self.wait_presence(self.intput_surname).send_keys(data_client['surname'])
-        self.wait_presence(self.intput_email).send_keys(data_client['email'])
-        self.wait_presence(self.intput_phone).send_keys(data_client['phone'])
-        self.wait_presence(self.intput_direction).send_keys(data_client['direction'])
+        self.wait_presence(self.intput_nickname).send_keys(data_client['client']['nickname'] + uuid.uuid1().hex)
+        self.wait_presence(self.intput_name).send_keys(data_client['client']['name'])
+        self.wait_presence(self.intput_surname).send_keys(data_client['client']['surname'])
+        self.wait_presence(self.intput_email).send_keys(data_client['client']['email'])
+        self.wait_presence(self.intput_phone).send_keys(data_client['client']['phone'])
+        self.wait_presence(self.intput_direction).send_keys(data_client['client']['direction'])

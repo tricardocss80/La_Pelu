@@ -20,9 +20,9 @@ class Pageproduct(PageCommonMethods):
     def menu_click_products_list(self):
         self.wait_clickable(self.listado).click()
 
-    def form_new_product(self, data_product):
-        self.wait_presence(self.input_name).send_keys(data_product['name'])
-        self.wait_presence(self.input_cost).send_keys(data_product['cost'])
-        self.wait_presence(self.intput_price).send_keys(data_product['price'])
-        self.wait_presence(self.intput_total).send_keys(data_product['total'])
-        self.wait_presence(self.intput_minimum).send_keys(data_product['minimum'])
+    def form_new_product(self, sale_data):
+        self.wait_presence(self.input_name).send_keys(sale_data['products']['name'])
+        self.wait_presence(self.input_cost).send_keys(sale_data['products']['cost'])
+        self.wait_presence(self.intput_price).send_keys(sale_data['products']['price'])
+        self.wait_presence(self.intput_total).send_keys(sale_data['products']['total'])
+        self.wait_presence(self.intput_minimum).send_keys(sale_data['products']['minimum'])

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from selenium import webdriver
+import json
 from page_objects.pageindex import Pageindex
 from page_objects.pagelogin import Pagelogin
 from page_objects.pagesales import Pagesales
@@ -9,7 +10,6 @@ from page_objects.pageclient import Pageclient
 from page_objects.pageemployees import Pageemployees
 from page_objects.pagesalesforms import Pagesalesforms
 from selenium.webdriver.chrome.options import Options
-import uuid
 
 
 class SalesCaseSuite(unittest.TestCase):
@@ -27,19 +27,19 @@ class SalesCaseSuite(unittest.TestCase):
         self.ClientPage = Pageclient(self.driver)
         self.EmployeesPage = Pageemployees(self.driver)
         self.FormsSalesPage = Pagesalesforms(self.driver)
-        data = {'email': 'tricardocss@gmail.com', 'password': 'Velez300'}
-        self.LoginPage.login(data)
+        with open("../jsons/sale_data.json") as sale:
+            self.sale_data = json.loads(sale.read())
+        self.LoginPage.login(self.sale_data)
 
         # Crear un nuevo producto
     def test001_create_product(self):
-        data_product = {'name': 'shampoo', 'cost': '100', 'price': '250', 'total': '5', 'minimum': '2'}
         self.ProductPage.wait_overlay()
         self.ProductPage.menu_click_products()
         self.ProductPage.menu_click_products_list()
         self.ProductPage.wait_overlay()
         quantity_initial = self.ProductPage.quantity()
         self.ProductPage.click_new_button()
-        self.ProductPage.form_new_product(data_product)
+        self.ProductPage.form_new_product(self.sale_data)
         self.ProductPage.click_save_button()
         self.ProductPage.wait_overlay()
         quantity_final = self.ProductPage.quantity()
@@ -47,15 +47,12 @@ class SalesCaseSuite(unittest.TestCase):
 
     # Crear un cliente
     def test002_create_client(self):
-        data_client = {'nickname': 'Maria-' + uuid.uuid1().hex, 'name': 'Maria', 'surname': 'Lopez',
-                       'email': 'martitalopez@gmail.com',
-                       'phone': '1133551331', 'direction': 'Marcopolo 1013'}
         self.ClientPage.wait_overlay()
         self.ClientPage.menu_click_client()
         self.ClientPage.wait_overlay()
         quantity_initial = self.ClientPage.quantity()
         self.ClientPage.click_new_button()
-        self.ClientPage.form_client(data_client)
+        self.ClientPage.form_client(self.sale_data)
         self.ClientPage.click_save_button()
         self.ClientPage.wait_overlay()
         quantity_final = self.ClientPage.quantity()
@@ -63,13 +60,12 @@ class SalesCaseSuite(unittest.TestCase):
 
     # Crear un empleado
     def test003_crate_employees(self):
-        name = 'Andres Sosa-'+uuid.uuid1().hex
         self.EmployeesPage.wait_overlay()
         self.EmployeesPage.menu_click_employees()
         self.EmployeesPage.wait_overlay()
         quantity_initial = self.EmployeesPage.quantity()
         self.EmployeesPage.click_new_button()
-        self.EmployeesPage.form_employees(name)
+        self.EmployeesPage.form_employees(self.sale_data)
         self.EmployeesPage.dropdown_item_list()
         self.EmployeesPage.click_save_button()
         self.EmployeesPage.wait_overlay()
@@ -78,18 +74,17 @@ class SalesCaseSuite(unittest.TestCase):
 
     # Crear una venta con cliente, producto y empleado existentes
     def test004_Create_sale_with_existing_customer_product_employee(self):
-        data_sale = {'client': 'mar', 'product': 'sha', 'quantity': '1'}
         self.SalesPage.wait_overlay()
         self.SalesPage.sale_menu()
         self.SalesPage.wait_overlay()
         quantity_initial = self.SalesPage.quantity()
         self.SalesPage.click_button_new_sale()
-        self.FormsSalesPage.form_new_sales(data_sale)
+        self.FormsSalesPage.form_new_sales(self.sale_data)
         self.FormsSalesPage.add_product()
         self.FormsSalesPage.sub_form_employees()
-        self.FormsSalesPage.sub_form_product(data_sale)
+        self.FormsSalesPage.sub_form_product(self.sale_data)
         self.FormsSalesPage.dropdown_item_list()
-        self.FormsSalesPage.sub_form_quantity(data_sale)
+        self.FormsSalesPage.sub_form_quantity(self.sale_data)
         self.FormsSalesPage.item_add_save()
         self.SalesPage.click_save_button()
         self.SalesPage.wait_overlay()

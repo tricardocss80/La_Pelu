@@ -10,13 +10,11 @@ class Pagelogin(PageCommonMethods):
         self.aceptar_button = (By.XPATH, '//button[@type="submit"]')
         self.driver = driver
 
-    def login(self, data):
+    def login(self, sale_data):
         email = self.wait_presence(self.input_email)
         email.clear()
-        email.send_keys(data['email'])
+        email.send_keys(sale_data['login']['email'])
         password = self.wait_presence(self.input_password)
         password.clear()
-        password.send_keys(data['password'])
+        password.send_keys(sale_data['login']['password'])
         self.wait_clickable(self.aceptar_button).click()
-
-
